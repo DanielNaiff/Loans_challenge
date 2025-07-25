@@ -1,23 +1,36 @@
 package com.danielnaiff.loans.Entities;
 
-import java.math.BigDecimal;
+import com.danielnaiff.loans.Entities.enums.LoanType;
 
-public class Person {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Customer {
     private int age;
     private String cpf;
     private String name;
-    private BigDecimal income;
+    private Double income;
     private String location;
+    private List<Loan> loans = new ArrayList<>();
 
-    public Person() {
+    public Customer() {
     }
 
-    public Person(int age, String cpf, String name, BigDecimal income, String location) {
+    public Customer(int age, String cpf, String name, Double income, String location, List<Loan> loans) {
         this.age = age;
         this.cpf = cpf;
         this.name = name;
         this.income = income;
         this.location = location;
+        this.loans = loans;
+    }
+
+    public List<Loan> getLoanTypes() {
+        return loans;
+    }
+
+    public void setLoanTypes(Loan loans) {
+        this.loans.add(loans);
     }
 
     public int getAge() {
@@ -44,11 +57,11 @@ public class Person {
         this.name = name;
     }
 
-    public BigDecimal getIncome() {
+    public Double getIncome() {
         return income;
     }
 
-    public void setIncome(BigDecimal income) {
+    public void setIncome(Double income) {
         this.income = income;
     }
 

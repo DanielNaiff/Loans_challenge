@@ -9,9 +9,13 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(LoanType type, int interest_rate) {
+    public Loan(LoanType type) {
         this.type = type;
-        this.interest_rate = interest_rate;
+        this.interest_rate = switch (type) {
+            case PERSONAL -> 4;
+            case GUARANTEED -> 3;
+            case CONSIGNMENT -> 2;
+        };
     }
 
     public int getInterest_rate() {
