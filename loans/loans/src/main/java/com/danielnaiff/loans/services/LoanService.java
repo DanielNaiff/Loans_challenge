@@ -16,7 +16,7 @@ public class LoanService {
     public LoanService(){}
 
     public CustomerLoansResponseDTO checkAvailability(CustomerResquestDTO customerRequest){
-        
+
         Customer customer = new Customer();
 
         customer.setName(customerRequest.name());
