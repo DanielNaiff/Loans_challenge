@@ -7,60 +7,37 @@ import com.danielnaiff.loans.Entities.dtos.CustomerResquestDTO;
 import com.danielnaiff.loans.Entities.enums.LoanType;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 @Service
 public class LoanService {
 
-    public LoanService(){}
-
-    public CustomerLoansResponseDTO checkAvailability(CustomerResquestDTO customerRequest){
-
+    public CustomerLoansResponseDTO checkAvailability(CustomerResquestDTO request) {
         Customer customer = new Customer();
+        customer.setName(request.name());
 
-        customer.setName(customerRequest.name());
+        double income = request.income();
+        int age = request.age();
+        String location = request.location();
 
-        if(isEligibleForPersonalLoanByLowIncome(customerRequest.income())){
-            customer.setLoanTypes(new Loan(LoanType.PERSONAL));
+        boolean isYoungInSP = age < 30 && "SP".equalsIgnoreCase(location);
+        boolean lowIncome = income <= 3000;
+        boolean midIncome = income > 3000 && income <= 5000;
+        boolean highIncome = income >= 5000;
+
+        // PERSONAL
+        if (lowIncome || (midIncome && isYoungInSP)) {
+            customer.addLoan(new Loan(LoanType.PERSONAL));
         }
 
-        if(isEligibleForPersonalLoanByAgeAndLocation(customerRequest.income(), customerRequest.age())){
-            customer.setLoanTypes(new Loan(LoanType.PERSONAL));
+        // GUARANTEED
+        if (lowIncome || (midIncome && isYoungInSP)) {
+            customer.addLoan(new Loan(LoanType.GUARANTEED));
         }
 
-        if(isEligibleForConsignmentLoanByHighIncome(customerRequest.income())){
-            customer.setLoanTypes(new Loan(LoanType.CONSIGNMENT));
-        }
-
-        if(isEligibleForGuaranteedLoanByLowIncome(customerRequest.income())){
-            customer.setLoanTypes(new Loan(LoanType.GUARANTEED));
-        }
-
-        if(isEligibleForGuaranteedLoanByAgeAndLocation(customerRequest.income(), customerRequest.age(),customerRequest.location())){
-            customer.setLoanTypes(new Loan(LoanType.GUARANTEED));
+        // CONSIGNMENT
+        if (highIncome) {
+            customer.addLoan(new Loan(LoanType.CONSIGNMENT));
         }
 
         return new CustomerLoansResponseDTO(customer.getName(), customer.getLoanTypes());
-    }
-
-    private boolean isEligibleForPersonalLoanByLowIncome(Double income) {
-        return income <= 3000;
-    }
-
-    private boolean isEligibleForPersonalLoanByAgeAndLocation(Double income, int age) {
-        return (income >= 3000 && income <= 5000) && age < 30;
-    }
-
-    private boolean isEligibleForConsignmentLoanByHighIncome(Double income) {
-        return income >= 5000;
-    }
-
-    private boolean isEligibleForGuaranteedLoanByLowIncome(Double income) {
-        return income <= 3000;
-    }
-
-    private boolean isEligibleForGuaranteedLoanByAgeAndLocation(Double income, int age, String state) {
-        return (income <= 3000) && age < 30 && Objects.equals(state, "SP");
     }
 }

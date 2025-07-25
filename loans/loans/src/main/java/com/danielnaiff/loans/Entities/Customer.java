@@ -29,7 +29,7 @@ public class Customer {
         return loans;
     }
 
-    public void setLoanTypes(Loan loans) {
+    public void addLoan(Loan loans) {
         this.loans.add(loans);
     }
 
