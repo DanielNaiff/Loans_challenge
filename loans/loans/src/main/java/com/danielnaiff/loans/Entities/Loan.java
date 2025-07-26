@@ -2,6 +2,8 @@ package com.danielnaiff.loans.Entities;
 
 import com.danielnaiff.loans.Entities.enums.LoanType;
 
+import java.util.Objects;
+
 public class Loan {
     private LoanType type;
     private int interest_rate;
@@ -32,5 +34,26 @@ public class Loan {
 
     public void setType(LoanType type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Loan loan = (Loan) o;
+        return type == loan.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type);
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "type=" + type +
+                ", interest_rate=" + interest_rate +
+                '}';
     }
 }
