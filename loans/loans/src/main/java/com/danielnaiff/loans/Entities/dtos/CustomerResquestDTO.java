@@ -1,13 +1,13 @@
 package com.danielnaiff.loans.Entities.dtos;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
 
 public record CustomerResquestDTO(
-        @NotBlank(message = "Age is mandatory")
+        @Min(value = 18, message =  "Not a valid age value")
         int age,
 
         @NotBlank(message = "CPF is mandatory")

@@ -5,6 +5,7 @@ import com.danielnaiff.loans.Entities.Loan;
 import com.danielnaiff.loans.Entities.dtos.CustomerLoansResponseDTO;
 import com.danielnaiff.loans.Entities.dtos.CustomerResquestDTO;
 import com.danielnaiff.loans.Entities.enums.LoanType;
+import com.danielnaiff.loans.exceptions.LoanEligibilityException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,6 +37,10 @@ public class LoanService {
         // CONSIGNMENT
         if (highIncome) {
             customer.addLoan(new Loan(LoanType.CONSIGNMENT));
+        }
+
+        if (customer.getLoanTypes().isEmpty()) {
+            throw new LoanEligibilityException("Nenhum empréstimo disponível para esse perfil.");
         }
 
         return new CustomerLoansResponseDTO(customer.getName(), customer.getLoanTypes());

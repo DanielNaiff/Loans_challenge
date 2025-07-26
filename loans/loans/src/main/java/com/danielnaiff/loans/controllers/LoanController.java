@@ -3,6 +3,7 @@ package com.danielnaiff.loans.controllers;
 import com.danielnaiff.loans.Entities.dtos.CustomerLoansResponseDTO;
 import com.danielnaiff.loans.Entities.dtos.CustomerResquestDTO;
 import com.danielnaiff.loans.services.LoanService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class LoanController {
     }
 
     @PostMapping("/customer-loans")
-    public ResponseEntity<CustomerLoansResponseDTO> customerLoans(@RequestBody CustomerResquestDTO customerResquestDTO){
+    public ResponseEntity<CustomerLoansResponseDTO> customerLoans(@RequestBody @Valid CustomerResquestDTO customerResquestDTO){
 
          CustomerLoansResponseDTO response = loanService.checkAvailability(customerResquestDTO);
 
