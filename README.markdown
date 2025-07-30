@@ -118,5 +118,9 @@ Ao resolver este desafio, pratiquei:
 - Adicionar validação de entrada mais robusta (ex.: verificar se o JSON contém todos os campos obrigatórios).
 - Criar uma interface CLI ou API REST para facilitar a interação com o sistema.
 
+## Referências
+- Desafio original: [backend-br/desafios - Concessão de Empréstimos](https://github.com/backend-br/desafios/blob/master/loans/PROBLEM.md)
+- Repositório do desafio: [backend-br/desafios](https://github.com/backend-br/desafios)
+
 ## Contato
 Se você tiver sugestões ou quiser discutir sobre o desafio, sinta-se à vontade para me contatar pelo LinkedIn: www.linkedin.com/in/daniel-naiff-a89092283 ou por e-mail: danielnaiff344@gmail.com.
